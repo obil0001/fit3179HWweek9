@@ -1,0 +1,37 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Average Net Tax by suburb",
+    "width": 800,
+    "height": 400,
+    "projection": {"type": "mercator"},
+    "data": {
+    "url": "https://raw.githubusercontent.com/obil0001/fit3179/refs/heads/main/output.json",
+    "format": {"type": "topojson", "feature": "POSTCODE_POLYGON"}
+  },
+    "transform": [
+    {
+      "lookup": "properties.POSTCODE",
+      "from": {
+      "data": {
+      "url": "https://raw.githubusercontent.com/obil0001/fit3179/refs/heads/main/suburbnmediantax.csv"
+    },
+      "key": "Postcode",
+      "fields": ["Average net tax"]
+    }
+  
+    }
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+    "color": {
+    "field": "Average net tax",
+    "type": "quantitative",
+    "scale": {"type": "log"}
+    },
+    "tooltip": [
+    {"field": "properties.POSTCODE", "type": "nominal", "title":
+    "Postcode"},
+    {"field": "Average net tax", "type": "quantitative"}
+    ]
+    }
+  }
